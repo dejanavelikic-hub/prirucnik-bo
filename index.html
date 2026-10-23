@@ -5,8 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Priručnik BO 2026</title>
 <meta name="description" content="Brza pretraga Priručnika za rad biračkih odbora 2026 – broj strane i tekst iz papirnog priručnika.">
-<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#eaf2ec" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1712" media="(prefers-color-scheme: dark)">
+<link rel="preload" href="fonts/inter-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -14,12 +15,22 @@
 </head>
 <body>
 <header class="traka">
-  <input id="upit" type="search" autofocus autocomplete="off" autocorrect="off" autocapitalize="off"
-         spellcheck="false" enterkeyhint="search" inputmode="search"
-         placeholder="Pitanje latinicom, npr. istekla licna karta" aria-label="Pretraga priručnika">
-  <div class="alati">
-    <button id="pismo" type="button" aria-pressed="false">Latinica</button>
-    <button id="tema" type="button" aria-label="Promeni temu">Tamna tema</button>
+  <div class="unutra">
+    <div class="red">
+    <div class="polje">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
+        <circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/>
+      </svg>
+      <input id="upit" type="search" autofocus autocomplete="off" autocorrect="off" autocapitalize="off"
+             spellcheck="false" enterkeyhint="search" inputmode="search"
+             placeholder="Ukucaj pitanje latinicom" aria-label="Pretraga priručnika">
+    </div>
+    <button id="recenice" class="recenice-dugme" type="button" aria-expanded="false" aria-controls="rezultati" hidden>💬 Rečenice</button>
+    </div>
+    <div class="alati">
+      <button id="pismo" type="button" aria-pressed="false">Latinica</button>
+      <button id="tema" type="button" aria-label="Promeni temu">Tamna tema</button>
+    </div>
   </div>
 </header>
 

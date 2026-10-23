@@ -31,6 +31,7 @@ const SINONIMI = {
   visak: "veci",
   slikanje: "fotograf",
   kucno: "van birackog mesta",
+  sporan: "vazeci nevazeci",
 };
 
 // Kratki nazivi poglavlja za prikaz uz rezultat, po rednom broju poglavlja.

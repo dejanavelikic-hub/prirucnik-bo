@@ -1,6 +1,6 @@
 // Service worker: sve se kešira pri instalaciji, posle radi i u avionskom režimu.
 // VERZIJU menja scripts/napravi_app.mjs kad se promeni bilo koji fajl.
-const VERZIJA = "46d8b63275c1";
+const VERZIJA = "a8ee4c50994e";
 const KES = `prirucnik-${VERZIJA}`;
 const FAJLOVI = [
   "./",
@@ -12,8 +12,12 @@ const FAJLOVI = [
   "icon.svg",
   "icon-192.png",
   "icon-512.png",
+  "fonts/inter-latin.woff2",
+  "fonts/inter-latin-ext.woff2",
+  "fonts/inter-cyrillic.woff2",
   "data/prirucnik.json",
   "data/saveti.json",
+  "data/recenice.json",
 ];
 
 self.addEventListener("install", (e) => {

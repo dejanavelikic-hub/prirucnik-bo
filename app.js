@@ -57,12 +57,15 @@ const el = (tag, klasa, tekst) => {
 
 function pomoc() {
   const d = el("div", "pomoc");
-  d.append(el("p", null, "Kucaj latinicom, bez kvačica. Primeri:"));
-  const ul = el("ul");
+  d.append(el("p", null, "Kucaj latinicom, bez kvačica. Na primer:"));
+  const primeri = el("div", "primeri");
   for (const p of ["birac odbija sprej", "istekla licna karta", "glasanje van bm", "kontrolni list nije nadjen", "ispravka u zapisniku"]) {
-    ul.append(el("li", null, p));
+    const b = el("button", null, p);
+    b.type = "button";
+    b.addEventListener("click", () => { upitPolje.value = p; prikazi(); upitPolje.focus(); });
+    primeri.append(b);
   }
-  d.append(ul);
+  d.append(primeri);
   return d;
 }
 
@@ -71,7 +74,7 @@ function karticaRezultata(r) {
   const z = el("div", "zaglavlje");
   const broj = el("div", "broj");
   broj.append(el("small", null, "STR."), document.createTextNode(String(r.strana)));
-  z.append(broj, el("div", "poglavlje", `· ${r.poglavlje_kratko || kratkoPoglavlje(r.poglavlje)}`));
+  z.append(broj, el("div", "poglavlje", r.poglavlje_kratko || kratkoPoglavlje(r.poglavlje)));
   const t = el("p", "tekst", latinica ? r.tekst_lat : r.tekst);
   t.lang = latinica ? "sr-Latn" : "sr-Cyrl";
   a.append(z, t);
@@ -85,8 +88,48 @@ function karticaSaveta(s) {
   return a;
 }
 
+// ---- rečenice za mirno reagovanje
+const recenicaBtn = $("recenice");
+let recenice = [];
+let recenicaOtvorene = false;
+
+function prikaziRecenice() {
+  const d = el("div", "recenice");
+  d.append(el("p", "oznaka", "Interni materijal – nije iz priručnika"));
+  const ol = el("ol");
+  for (const r of recenice) {
+    const li = el("li");
+    li.append(el("p", "recenica", `„${r.tekst}“`));
+    if (r.objasnjenje) li.append(el("p", "objasnjenje", r.objasnjenje));
+    if (r.napomena) li.append(el("p", "objasnjenje", r.napomena));
+    ol.append(li);
+  }
+  const zatvori = el("button", "zatvori", "Zatvori");
+  zatvori.type = "button";
+  zatvori.addEventListener("click", () => postaviRecenice(false));
+  d.append(ol, zatvori);
+  statusEl.textContent = "";
+  rezultatiEl.replaceChildren(d);
+  savetiEl.replaceChildren();
+}
+
+function postaviRecenice(otvori) {
+  recenicaOtvorene = otvori;
+  recenicaBtn.setAttribute("aria-expanded", String(otvori));
+  if (otvori) {
+    upitPolje.blur(); // da tastatura ne pokrije spisak
+    prikaziRecenice();
+    scrollTo({ top: 0 });
+  } else {
+    prikazi();
+    upitPolje.focus();
+  }
+}
+recenicaBtn.addEventListener("click", () => postaviRecenice(!recenicaOtvorene));
+
 function prikazi() {
   if (!index) return;
+  if (recenicaOtvorene) { prikaziRecenice(); return; }
   const upit = upitPolje.value.trim();
   rezultatiEl.replaceChildren();
   savetiEl.replaceChildren();
@@ -109,23 +152,28 @@ function prikazi() {
 let tajmer = 0;
 upitPolje.addEventListener("input", () => {
   clearTimeout(tajmer);
+  if (recenicaOtvorene) { recenicaOtvorene = false; recenicaBtn.setAttribute("aria-expanded", "false"); }
   tajmer = setTimeout(prikazi, ODLAGANJE);
 });
 upitPolje.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") { upitPolje.value = ""; prikazi(); }
+  if (e.key === "Escape") { upitPolje.value = ""; recenicaOtvorene = false; recenicaBtn.setAttribute("aria-expanded", "false"); prikazi(); }
   if (e.key === "Enter") { clearTimeout(tajmer); prikazi(); upitPolje.blur(); }
 });
 
 // ---- podaci
 async function ucitaj() {
-  const [prirucnik, saveti] = await Promise.all([
+  const [prirucnik, saveti, rec] = await Promise.all([
     fetch("data/prirucnik.json").then((r) => r.json()),
     // dok nema odobrenih saveta, aplikacija radi samo sa priručnikom
     fetch("data/saveti.json").then((r) => (r.ok ? r.json() : { saveti: [] })).catch(() => ({ saveti: [] })),
+    fetch("data/recenice.json").then((r) => (r.ok ? r.json() : { recenice: [] })).catch(() => ({ recenice: [] })),
   ]);
   index = buildIndex(prirucnik, saveti);
+  recenice = rec.recenice ?? [];
+  recenicaBtn.hidden = !recenice.length;
   const q = new URLSearchParams(location.search).get("q");
   if (q) upitPolje.value = q;
+  if (new URLSearchParams(location.search).has("recenice") && recenice.length) { postaviRecenice(true); return; }
   prikazi();
   upitPolje.focus();
 }
