@@ -16,18 +16,19 @@
 <body>
 <header class="traka">
   <div class="unutra">
-    <div class="red">
     <div class="polje">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
         <circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/>
       </svg>
       <input id="upit" type="search" autofocus autocomplete="off" autocorrect="off" autocapitalize="off"
              spellcheck="false" enterkeyhint="search" inputmode="search"
-             placeholder="Ukucaj pitanje latinicom" aria-label="Pretraga priručnika">
-    </div>
-    <button id="recenice" class="recenice-dugme" type="button" aria-expanded="false" aria-controls="rezultati" hidden>💬 Rečenice</button>
+             placeholder="Ukucaj pitanje" aria-label="Pretraga priručnika">
+      <button id="obrisi" class="obrisi" type="button" aria-label="Obriši pitanje" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
     </div>
     <div class="alati">
+      <button id="recenice" class="recenice-dugme" type="button" aria-expanded="false" aria-controls="rezultati" hidden>💬 Rečenice</button>
       <button id="pismo" type="button" aria-pressed="false">Latinica</button>
       <button id="tema" type="button" aria-label="Promeni temu">Tamna tema</button>
     </div>

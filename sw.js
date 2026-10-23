@@ -1,6 +1,6 @@
 // Service worker: sve se kešira pri instalaciji, posle radi i u avionskom režimu.
 // VERZIJU menja scripts/napravi_app.mjs kad se promeni bilo koji fajl.
-const VERZIJA = "a8ee4c50994e";
+const VERZIJA = "51d5f1cb7957";
 const KES = `prirucnik-${VERZIJA}`;
 const FAJLOVI = [
   "./",

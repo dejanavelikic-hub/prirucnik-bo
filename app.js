@@ -127,7 +127,22 @@ function postaviRecenice(otvori) {
 }
 recenicaBtn.addEventListener("click", () => postaviRecenice(!recenicaOtvorene));
 
+// ---- dugme X: vidi se samo kad u polju ima teksta
+const obrisiBtn = $("obrisi");
+const osveziObrisi = () => { obrisiBtn.hidden = !upitPolje.value; };
+// pointerdown bez podrazumevane radnje: polje ne gubi fokus, tastatura ostaje otvorena
+obrisiBtn.addEventListener("pointerdown", (e) => e.preventDefault());
+obrisiBtn.addEventListener("click", () => {
+  clearTimeout(tajmer);
+  upitPolje.value = "";
+  recenicaOtvorene = false;
+  recenicaBtn.setAttribute("aria-expanded", "false");
+  prikazi();
+  upitPolje.focus();
+});
+
 function prikazi() {
+  osveziObrisi();
   if (!index) return;
   if (recenicaOtvorene) { prikaziRecenice(); return; }
   const upit = upitPolje.value.trim();
@@ -152,6 +167,7 @@ function prikazi() {
 let tajmer = 0;
 upitPolje.addEventListener("input", () => {
   clearTimeout(tajmer);
+  osveziObrisi();
   if (recenicaOtvorene) { recenicaOtvorene = false; recenicaBtn.setAttribute("aria-expanded", "false"); }
   tajmer = setTimeout(prikazi, ODLAGANJE);
 });

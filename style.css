@@ -91,42 +91,29 @@ body {
   top: 0;
   z-index: 1;
   background: var(--pozadina);
-  padding: max(16px, env(safe-area-inset-top)) 16px 12px;
+  padding: max(12px, env(safe-area-inset-top)) 10px 10px;
 }
 .unutra { max-width: 720px; margin: 0 auto; }
-.red { display: flex; gap: 10px; align-items: stretch; }
-.polje { position: relative; flex: 1; min-width: 0; }
-.recenice-dugme {
-  flex: none;
-  font: inherit;
-  font-size: 17px;
-  font-weight: 650;
-  padding: 0 16px;
-  color: var(--savet-oznaka);
-  background: var(--savet-pozadina);
-  border: 2px solid var(--savet-traka);
-  border-radius: 20px;
-  cursor: pointer;
-  white-space: nowrap;
-}
-.recenice-dugme[aria-expanded="true"] { background: var(--savet-oznaka); border-color: var(--savet-oznaka); color: var(--povrsina); }
-.recenice-dugme:focus-visible { outline: 3px solid var(--fokus); outline-offset: 2px; }
-.polje svg {
+
+/* polje preko cele širine; lupa levo, X desno */
+.polje { position: relative; width: 100%; }
+.polje > svg {
   position: absolute;
-  left: 18px;
+  left: 16px;
   top: 50%;
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   transform: translateY(-50%);
   color: var(--tekst-blag);
   pointer-events: none;
 }
 #upit {
+  display: block;
   width: 100%;
-  min-height: 64px;
-  padding: 12px 18px 12px 54px;
+  min-height: 72px;
+  padding: 12px 68px 12px 54px;
   font: inherit;
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 500;
   color: var(--tekst);
   background: var(--povrsina);
@@ -136,16 +123,45 @@ body {
   -webkit-appearance: none;
   appearance: none;
 }
+#upit:placeholder-shown { padding-right: 18px; }
 #upit::placeholder { color: var(--tekst-blag); font-weight: 400; opacity: 1; }
 #upit:focus { outline: none; border-color: var(--fokus); box-shadow: 0 0 0 4px color-mix(in srgb, var(--fokus) 30%, transparent), var(--senka); }
+/* ugrađeni "x" pregledača je premali; koristi se naše dugme */
+#upit::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; display: none; }
+.obrisi {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  color: var(--tekst);
+  background: var(--naglasak-pozadina);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.obrisi[hidden] { display: none; }
+.obrisi svg { width: 24px; height: 24px; }
+.obrisi:focus-visible { outline: 3px solid var(--fokus); outline-offset: 2px; }
 
-.alati { display: flex; gap: 10px; margin-top: 12px; }
+.alati { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.alati button { flex: 1 1 auto; white-space: nowrap; }
+.alati .recenice-dugme {
+  color: var(--savet-oznaka);
+  background: var(--savet-pozadina);
+  border: 2px solid var(--savet-traka);
+}
+.alati .recenice-dugme[aria-expanded="true"] { background: var(--savet-oznaka); border-color: var(--savet-oznaka); color: var(--povrsina); }
 .alati button {
   font: inherit;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   min-height: 44px;
-  padding: 8px 18px;
+  padding: 8px 10px;
   color: var(--tekst);
   background: var(--povrsina);
   border: 1.5px solid var(--okvir);
