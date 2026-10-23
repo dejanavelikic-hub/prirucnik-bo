@@ -1,0 +1,135 @@
+:root {
+  --pozadina: #ffffff;
+  --tekst: #000000;
+  --slab: #3d3d3d;
+  --okvir: #000000;
+  --kartica: #ffffff;
+  --linija: #bdbdbd;
+  --naglasak: #0040c0;
+  --savet-pozadina: #fff3c4;
+  --savet-okvir: #8a5a00;
+  --savet-oznaka: #6b4400;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --pozadina: #000000;
+    --tekst: #ffffff;
+    --slab: #d0d0d0;
+    --okvir: #ffffff;
+    --kartica: #0d0d0d;
+    --linija: #555555;
+    --naglasak: #8fb4ff;
+    --savet-pozadina: #2b2200;
+    --savet-okvir: #ffcc33;
+    --savet-oznaka: #ffd75e;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --pozadina: #000000;
+  --tekst: #ffffff;
+  --slab: #d0d0d0;
+  --okvir: #ffffff;
+  --kartica: #0d0d0d;
+  --linija: #555555;
+  --naglasak: #8fb4ff;
+  --savet-pozadina: #2b2200;
+  --savet-okvir: #ffcc33;
+  --savet-oznaka: #ffd75e;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--pozadina);
+  color: var(--tekst);
+  font: 20px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.traka {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--pozadina);
+  padding: max(12px, env(safe-area-inset-top)) 16px 10px;
+  border-bottom: 2px solid var(--linija);
+}
+#upit {
+  width: 100%;
+  min-height: 60px;
+  padding: 10px 14px;
+  font: inherit;
+  font-size: 22px;
+  color: var(--tekst);
+  background: var(--kartica);
+  border: 3px solid var(--okvir);
+  border-radius: 12px;
+}
+#upit:focus { outline: 4px solid var(--naglasak); outline-offset: 2px; }
+.alati { display: flex; gap: 8px; margin-top: 8px; }
+.alati button {
+  font: inherit;
+  font-size: 16px;
+  min-height: 44px;
+  padding: 6px 14px;
+  color: var(--tekst);
+  background: var(--kartica);
+  border: 2px solid var(--okvir);
+  border-radius: 10px;
+  cursor: pointer;
+}
+.alati button[aria-pressed="true"] { background: var(--tekst); color: var(--pozadina); }
+
+main { padding: 12px 16px 24px; max-width: 760px; margin: 0 auto; }
+.status { color: var(--slab); margin: 4px 0 12px; font-size: 18px; }
+.status:empty { display: none; }
+
+.rez {
+  border: 3px solid var(--okvir);
+  border-radius: 14px;
+  padding: 12px 16px 16px;
+  margin: 0 0 14px;
+  background: var(--kartica);
+}
+.zaglavlje { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 12px; }
+.broj {
+  font-size: clamp(56px, 19vw, 104px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.broj small { font-size: 0.42em; font-weight: 800; letter-spacing: 0; margin-right: 0.15em; }
+.poglavlje { font-size: 20px; font-weight: 700; color: var(--slab); }
+.tekst { margin: 10px 0 0; font-size: 21px; line-height: 1.55; overflow-wrap: anywhere; }
+
+.nista { font-size: 20px; }
+.pomoc { color: var(--slab); }
+.pomoc ul { padding-left: 1.2em; margin: 6px 0; }
+
+#saveti:not(:empty) {
+  margin-top: 26px;
+  padding-top: 18px;
+  border-top: 4px dashed var(--savet-okvir);
+}
+.savet {
+  background: var(--savet-pozadina);
+  border: 3px dashed var(--savet-okvir);
+  border-radius: 14px;
+  padding: 12px 16px;
+  margin: 0 0 12px;
+}
+.savet .oznaka {
+  font-size: 15px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--savet-oznaka);
+}
+.savet p { margin: 6px 0 0; }
+.savet .vezano { font-size: 16px; color: var(--slab); }
+
+.podnozje { padding: 0 16px 32px; max-width: 760px; margin: 0 auto; font-size: 15px; color: var(--slab); }
+.podnozje p { margin: 4px 0; }

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Priručnik BO 2026</title>
+<meta name="description" content="Brza pretraga Priručnika za rad biračkih odbora 2026 – broj strane i tekst iz papirnog priručnika.">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="traka">
+  <input id="upit" type="search" autofocus autocomplete="off" autocorrect="off" autocapitalize="off"
+         spellcheck="false" enterkeyhint="search" inputmode="search"
+         placeholder="Pitanje latinicom, npr. istekla licna karta" aria-label="Pretraga priručnika">
+  <div class="alati">
+    <button id="pismo" type="button" aria-pressed="false">Latinica</button>
+    <button id="tema" type="button" aria-label="Promeni temu">Tamna tema</button>
+  </div>
+</header>
+
+<main>
+  <p id="status" class="status" aria-live="polite">Učitavam priručnik…</p>
+  <section id="rezultati" aria-label="Rezultati iz priručnika"></section>
+  <section id="saveti" aria-label="Interni saveti"></section>
+</main>
+
+<footer class="podnozje">
+  <p>Broj strane je štampani broj u papirnom Priručniku za rad biračkih odbora 2026.</p>
+  <p id="offline"></p>
+</footer>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
